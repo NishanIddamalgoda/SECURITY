@@ -1,0 +1,118 @@
+
+<!DOCTYPE HTML>
+<html lang="zxx">
+
+	<head>
+		<title>LOGIN</title>
+		<!-- Meta tag Keywords -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="UTF-8" />
+		<meta name="keywords" content=" "
+		/>
+		<script>
+			addEventListener("load", function () {
+				setTimeout(hideURLbar, 0);
+			}, false);
+
+			function hideURLbar() {
+				window.scrollTo(0, 1);
+			}
+		</script>
+		<!-- Meta tag Keywords -->
+		<!-- css files -->
+		<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+		<!-- Style-CSS -->
+		<link rel="stylesheet" href="css/fontawesome-all.css">
+		<!-- Font-Awesome-Icons-CSS -->
+		<!-- //css files -->
+		<!-- web-fonts -->
+		<link href="//fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
+		<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+		<!-- //web-fonts -->
+		
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	</head>
+	<script>
+		function loginSubmit(){
+					var p_text = $('#user_name').val();
+					var Pd_text = $('#user_password').val();
+					$.ajax({
+						type: "POST",
+						url: "login",
+						data: JSON.stringify({
+							usr: p_text, pd: Pd_text
+						}),
+						contentType: "application/json; charset=utf-8",
+						dataType: "json",
+						success: function (data) {
+							if(data.status=='ok'){
+								window.location.href='/home_d.html'
+							}else{
+								alert("Login Failed")
+							}
+						},
+						error: function (response) {
+							alert("ERROR");
+						}
+				});
+		}
+	</script>
+	<body>
+		<!-- bg effect -->
+		<div id="bg">
+			<canvas></canvas>
+			<canvas></canvas>
+			<canvas></canvas>
+		</div>
+		<!-- //bg effect -->
+		<!-- content -->
+		<div class="sub-main-w3">
+			<form>
+				<h2>Login Now
+					<i class="fas fa-level-down-alt"></i>
+				</h2>
+				<div class="form-style-agile">
+					<label>
+						<i class="fas fa-user"></i>
+						Username
+					</label>
+					<input placeholder="Username" name="Name" type="text" id="user_name" required="">
+				</div>
+				<div class="form-style-agile">
+					<label>
+						<i class="fas fa-unlock-alt"></i>
+						Password
+					</label>
+					<input placeholder="Password" name="Password" type="password" id="user_password" required="">
+				</div>
+				<!-- checkbox -->
+				<div class="wthree-text">
+					<ul>
+						<li>
+							<label class="anim">
+								<input type="checkbox" class="checkbox" required="">
+								<span>Stay Signed In</span>
+							</label>
+						</li>
+						<li>
+							<a href="#">Forgot Password?</a>
+						</li>
+					</ul>
+				</div>
+				<!-- //checkbox -->
+				<input type="button" value="Log In" onclick="loginSubmit()">
+			</form>
+		</div>
+		<!-- //content -->
+
+		<!-- Jquery -->
+
+		<!-- //Jquery -->
+
+		<!-- effect js -->
+		<script src="js/canva_moving_effect.js"></script>
+		<!-- //effect js -->
+
+	</body>
+
+</html>
