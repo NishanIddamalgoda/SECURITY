@@ -22,7 +22,7 @@ def csrf():
         response.content_type='application/json; charset=utf-8'
         response.status = 200
         response.set_cookie('CSRF_TOKEN', '12345')
-        return {'CSRF_TOKEN':'123245'}
+        return {'CSRF_TOKEN':'12345'}
     else:
         response.content_type='application/json; charset=utf-8'
         response.status = 200
