@@ -1,0 +1,99 @@
+
+<!DOCTYPE HTML>
+<html lang="zxx">
+
+	<head>
+		<title>LOGIN</title>
+		<!-- Meta tag Keywords -->
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta charset="UTF-8" />
+		<meta name="keywords" content=" "
+		/>
+		<script>
+			addEventListener("load", function () {
+				setTimeout(hideURLbar, 0);
+			}, false);
+
+			function hideURLbar() {
+				window.scrollTo(0, 1);
+			}
+		</script>
+		<!-- Meta tag Keywords -->
+		<!-- css files -->
+		<link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
+		<!-- Style-CSS -->
+		<link rel="stylesheet" href="css/fontawesome-all.css">
+		<!-- Font-Awesome-Icons-CSS -->
+		<!-- //css files -->
+		<!-- web-fonts -->
+		<link href="//fonts.googleapis.com/css?family=Josefin+Sans:100,100i,300,300i,400,400i,600,600i,700,700i" rel="stylesheet">
+		<link href="//fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i" rel="stylesheet">
+		<!-- //web-fonts -->
+		
+		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+	</head>
+	<script>
+		$(function () {
+			csrf();		
+		});
+
+		function csrf(){
+					$.ajax({
+						type: "POST",
+						url: "user/csrf",
+						data: JSON.stringify({
+							usr: "admin", pd: "admin"
+						}),
+						contentType: "application/json; charset=utf-8",
+						dataType: "json",
+						success: function (data) {
+							if (data.CSRF_TOKEN == "no"){
+								alert("validation fail")
+							}else{
+								$('#hiddenField').text(data.CSRF_TOKEN);
+							}
+						},
+						error: function (response) {
+							alert("ERROR");
+						}
+				});
+		}
+
+		function chechSynchronizer(){
+					$.ajax({
+						type: "POST",
+						url: "user/synchronize",
+						data: JSON.stringify({
+							CSRF_TOKEN: $('#hiddenField').text()
+						}),
+						contentType: "application/json; charset=utf-8",
+						dataType: "json",
+						success: function (data) {
+							if (data.validation == "ok"){
+								alert("Synchronizer validation pass");
+							}else{
+								alert("Synchronizer validation fail");
+							}
+						},
+						error: function (response) {
+							alert("ERROR");
+						}
+				});
+		}
+	</script>
+
+	<body>
+
+		<h1>login as Admin</h1>
+		<p style="margin-left:30%">This is hidden field : <spam id="hiddenField">asd</spam></p>
+		<br/>
+		<br/>
+		<input style="margin-left:30%" type="button" onclick="chechSynchronizer()" value="check" />
+
+		<!-- effect js -->
+		<script src="js/canva_moving_effect.js"></script>
+		<!-- //effect js -->
+
+	</body>
+
+</html>
