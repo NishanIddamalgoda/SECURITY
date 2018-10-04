@@ -31,8 +31,9 @@ def csrf():
 @post('/user/doublesubmit')
 def doublesubmit():
     sessinId=request.get_cookie('JSESSIONID')
+    CSRF_TOKEN_para=request.json.get('CSRF_TOKEN')
     CSRF_TOKEN=request.get_cookie('CSRF_TOKEN')
-    if sessinId=="SES121212" and CSRF_TOKEN=="12345":
+    if sessinId=="SES121212" and CSRF_TOKEN==CSRF_TOKEN_para:
         response.content_type='application/json; charset=utf-8'
         response.status = 200
         return {'validation':'ok'}
