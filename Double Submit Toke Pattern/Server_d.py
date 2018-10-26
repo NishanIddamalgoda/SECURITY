@@ -9,24 +9,12 @@ def login():
         response.content_type='application/json; charset=utf-8'
         response.status = 200
         response.set_cookie('JSESSIONID', 'SES121212')
+        response.set_cookie('CSRF_TOKEN', '12345')
         return {'status':'ok'}
     else:
         response.content_type='application/json; charset=utf-8'
         response.status = 200
         return {'status':'fail'}
-
-@post('/user/csrf')
-def csrf():
-    sessinId=request.get_cookie('JSESSIONID')
-    if sessinId == 'SES121212':
-        response.content_type='application/json; charset=utf-8'
-        response.status = 200
-        response.set_cookie('CSRF_TOKEN', '12345')
-        return {'CSRF_TOKEN':'12345'}
-    else:
-        response.content_type='application/json; charset=utf-8'
-        response.status = 200
-        return {'CSRF_TOKEN':'no'}
 
 @post('/user/doublesubmit')
 def doublesubmit():
