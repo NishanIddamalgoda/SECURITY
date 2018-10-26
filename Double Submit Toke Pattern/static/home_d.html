@@ -33,30 +33,32 @@
 		<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	</head>
 	<script>
+		//exucute when page loads
 		$(function () {
 			csrf();		
 		});
 
+		//function setting CSRF cookie value to hidden field
 		function csrf(){
-					$.ajax({
-						type: "POST",
-						url: "user/csrf",
-						data: JSON.stringify({
-							usr: "admin", pd: "admin"
-						}),
-						contentType: "application/json; charset=utf-8",
-						dataType: "json",
-						success: function (data) {
-							if (data.CSRF_TOKEN == "no"){
-								alert("validation fail")
-							}else{
-								$('#hiddenField').text(data.CSRF_TOKEN);
-							}
-						},
-						error: function (response) {
-							alert("ERROR");
-						}
-				});
+			var csrf_value = getCookie("CSRF_TOKEN");
+			$('#hiddenField').text(csrf_value);
+		}
+
+		//function that can read a cookie value when the name is given
+		function getCookie(cname) {
+			var name = cname + "=";
+			var decodedCookie = decodeURIComponent(document.cookie);
+			var ca = decodedCookie.split(';');
+			for(var i = 0; i <ca.length; i++) {
+				var c = ca[i];
+				while (c.charAt(0) == ' ') {
+					c = c.substring(1);
+				}
+				if (c.indexOf(name) == 0) {
+					return c.substring(name.length, c.length);
+				}
+			}
+			return "";
 		}
 
 		function chechDoublesubmit(){
